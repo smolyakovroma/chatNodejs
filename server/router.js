@@ -31,7 +31,7 @@ module.exports = app => {
         res.render('index.html', { username: req.user.username });
 });
 
-    app.post('/login', async (req, res) => {
+    app.post('/login', async function(req, res)  {
         try {
             let user = await UsersModel.findOne({username: {$regex: _.escapeRegExp(req.body.username), $options: "i"}}).lean().exec();
     if(user != void(0) && bcrypt.compareSync(req.body.password, user.password)) {
